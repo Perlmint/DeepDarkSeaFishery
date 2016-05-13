@@ -1,0 +1,4 @@
+set(R ${CMAKE_CURRENT_SOURCE_DIR})
+set(RESOURCES
+  ${R}/grass.png
+  PARENT_SCOPE)

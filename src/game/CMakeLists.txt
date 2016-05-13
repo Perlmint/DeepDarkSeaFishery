@@ -1,0 +1,22 @@
+add_sources(
+  Sources/game
+  ${R}/world.h
+  ${R}/world.cpp
+  ${R}/camera.h
+  ${R}/camera.cpp
+  ${R}/sprite.h
+  ${R}/sprite.cpp
+  ${R}/texture.h
+  ${R}/texture.cpp
+  ${R}/texture_cache.h
+  ${R}/texture_cache.cpp
+  ${R}/game_object.h
+  ${R}/game_object.cpp
+  ${R}/animation.h
+  ${R}/animation.cpp
+  ${R}/util.h
+  ${R}/util.cpp
+  ${R}/renderer.h
+  ${R}/renderer.cpp
+  ${R}/render_command.h
+  )
