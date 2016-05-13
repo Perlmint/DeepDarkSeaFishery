@@ -14,7 +14,7 @@ elseif(APPLE)
 endif()
 
 if (${LIBSDL} STREQUAL LIBSDL-NOTFOUND)
-  message(FATAL_ERROR "libsdl is notfound")
+  message(FATAL_ERROR "libsdl is notfound place libsdl files into ext")
 endif()
 
 add_subdirectory(res)
