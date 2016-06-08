@@ -17,3 +17,25 @@ DeepDarkSeaFishery
 5. run cmake at build directory - use proper generator
   * You can check available generator via running `cmake --help`
   * Example for xcode : `cmake -GXcode ..`
+
+## How to add new source files
+
+All sources are placed under the *src* folder. Each folder that containing source files also contains *CMakeLists.txt*. Source file list is managed by *CMakeLists.txt*. So, you should update proper *CMakeLists.txt* to add new source file. Below is an example adding new *src/new_feature.cpp* and *src/new_feature.h*.
+
+### Original a part of  *CMakeLists.txt* in src
+```
+add_sources(
+  Sources
+  ${R}/main.cpp
+  ${R}/platform.h)
+```
+
+### After add files
+```
+add_sources(
+  Sources
+  ${R}/main.cpp
+  ${R}/platform.h
+  ${R}/new_feature.h
+  ${R}/new_feature.cpp)
+```
