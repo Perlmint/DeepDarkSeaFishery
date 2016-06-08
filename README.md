@@ -7,3 +7,13 @@ DeepDarkSeaFishery
 * C++ Compiler (Support almost cpp14 feature)
 * SDL2 (place into ext directory or system directory)
 * SDL2_image (place into ext directory or system directory)
+
+## How to build
+
+1. Download SDL2 Development Library from https://www.libsdl.org/download-2.0.php
+2. Download SDL2_image Development Library from https://www.libsdl.org/projects/SDL_image/
+3. Extract both into *ext* folder
+4. make build directory(usually *build*)
+5. run cmake at build directory - use proper generator
+  * You can check available generator via running `cmake --help`
+  * Example for xcode : `cmake -GXcode ..`
