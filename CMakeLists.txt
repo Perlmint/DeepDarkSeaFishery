@@ -13,7 +13,7 @@ elseif(APPLE)
   list(APPEND PLATFORM_SPECIFIC_LIBS ${COCOA})
 endif()
 
-if (${LIBSDL} STREQUAL LIBSDL-NOTFOUND)
+if ("${LIBSDL}" STREQUAL LIBSDL-NOTFOUND)
   message(FATAL_ERROR "libsdl is notfound place libsdl files into ext")
 endif()
 
