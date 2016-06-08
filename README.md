@@ -39,3 +39,11 @@ add_sources(
   ${R}/new_feature.h
   ${R}/new_feature.cpp)
 ```
+
+## How to add new resource file?
+
+All resources are placed under *res* folder. Update *res/CMakeLists.txt*.
+
+## Too annoying. Why should use cmake?
+
+Because C++ is sucks for building on many platforms. CMake can handle it, can works with many compilers - VC, clang, gcc.
