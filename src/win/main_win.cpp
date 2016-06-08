@@ -16,3 +16,19 @@ bool initWindow(SDL_Window *window)
 
   return true;
 }
+
+bool initRenderer(SDL_Renderer *renderer)
+{
+  return true;
+}
+
+int CALLBACK WinMain(
+	_In_ HINSTANCE hInstance,
+	_In_ HINSTANCE hPrevInstance,
+	_In_ LPSTR     lpCmdLine,
+	_In_ int       nCmdShow
+	)
+{
+	char *dummy[1];
+	SDL_main(1, dummy);
+}
