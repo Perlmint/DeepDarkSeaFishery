@@ -18,6 +18,8 @@ if(APPLE)
     include_sub(osx)
   else()
   endif()
+elseif(WIN32)
+  include_sub(win)
 endif()
 
 include_directories(${R})
