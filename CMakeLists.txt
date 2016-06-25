@@ -13,6 +13,16 @@ if(WIN32)
   list(APPEND CMAKE_LIBRARY_PATH ${EXT_LIB_PATH})
   find_library(LIBSDL SDL2)
   find_library(LIBSDLIMG SDL2_image)
+
+  # copy dll
+  foreach(dllname ITEMS
+          SDL2.dll
+          SDL2_image.dll)
+    list(APPEND DLL_LIST ${EXT_LIB_PATH}/${dllname})
+    list(APPEND OUTPUT_DLL_LIST ${CMAKE_CURRENT_BINARY_DIR}/${dllname})
+  endforeach(dllname)
+  execute_process(COMMAND cmake -E copy_if_different ${DLL_LIST} ${CMAKE_CURRENT_BINARY_DIR})
+
   include_directories(ext/include ext/include/SDL2)
 elseif(APPLE)
   list(APPEND CMAKE_FRAMEWORK_PATH ${CMAKE_CURRENT_SOURCE_DIR}/ext)
