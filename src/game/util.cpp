@@ -34,8 +34,8 @@ Size Size::operator*(float v) const
 {
   Size newSize = *this;
 
-  newSize.width *= v;
-  newSize.height *= v;
+  newSize.width = static_cast<uint_fast32_t>(newSize.width * v);
+  newSize.height = static_cast<uint_fast32_t>(newSize.height * v);
 
   return newSize;
 }
