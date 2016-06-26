@@ -42,9 +42,43 @@ std::weak_ptr<Texture> TextureCache::loadFromPath(const std::string &path)
     return found->second;
   }
 
-  SDL_Surface *image;
-  SDL_RWops *rwop;
-  rwop=SDL_RWFromFile(path.c_str(), "rb");
+  SDL_RWops *rwop = SDL_RWFromFile(path.c_str(), "rb");
+
+  return cacheByPath.insert(std::make_pair(path, loadFromOps(rwop))).first->second;
+}
+
+std::shared_ptr<Texture> TextureCache::loadFromData(const char * const data, size_t size)
+{
+  auto ret = loadFromOps(SDL_RWFromConstMem(data, static_cast<int>(size)));
+  return ret;
+}
+
+#ifdef _MSC_VER
+#include <Windows.h>
+#include "res_map.h"
+std::weak_ptr<Texture> TextureCache::loadFromID(unsigned int id)
+{
+  const auto &info = res_map.at(id);
+
+  auto found = cacheByPath.find(info.path);
+  if (found != cacheByPath.end())
+  {
+    return found->second;
+  }
+
+  HMODULE hModule = GetModuleHandle(NULL);
+
+  HRSRC hImage = FindResource(hModule, MAKEINTRESOURCE(id), info.cat);
+  unsigned int size = SizeofResource(hModule, hImage);
+  HGLOBAL hg = LoadResource(hModule, hImage);
+  const char* data = (const char*)LockResource(hg);
+  auto ret = loadFromData(data, size);
+  return cacheByPath.insert(std::make_pair(info.path, ret)).first->second;
+}
+#endif // _MSC_VER
+
+std::shared_ptr<Texture> TextureCache::loadFromOps(SDL_RWops * rwop)
+{
   SDL_Surface *(*loadFunc)(SDL_RWops *) = nullptr;
   if (IMG_isPNG(rwop))
   {
@@ -62,8 +96,8 @@ std::weak_ptr<Texture> TextureCache::loadFromPath(const std::string &path)
   {
     loadFunc = &IMG_LoadGIF_RW;
   }
-  image = loadFunc(rwop);
+  SDL_Surface *image = loadFunc(rwop);
 
   SDL_Texture *texture = SDL_CreateTextureFromSurface(Renderer::get(), image);
-  return cacheByPath.insert(std::make_pair(path, std::shared_ptr<Texture>(new Texture(texture)))).first->second;
+  return std::shared_ptr<Texture>(new Texture(texture));
 }

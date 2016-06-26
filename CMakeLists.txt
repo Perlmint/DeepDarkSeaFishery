@@ -3,6 +3,9 @@ project(DeepDarkSeaFishery)
 
 set(APPNAME DeepDarkSeaFishery)
 
+include(res/CMakeLists.txt)
+include(src/CMakeLists.txt)
+
 if(WIN32)
   list(APPEND SRCS src/win/main_win.cpp)
   if("${CMAKE_SIZEOF_VOID_P}" EQUAL 8)
@@ -26,7 +29,13 @@ if(WIN32)
   endforeach(dllname)
   execute_process(COMMAND cmake -E copy_if_different ${DLL_LIST} ${CMAKE_CURRENT_BINARY_DIR})
 
-  include_directories(ext/include ext/include/SDL2)
+  include_directories(ext/include ext/include/SDL2 ${CMAKE_CURRENT_BINARY_DIR}/gen)
+  list(APPEND SRCS
+    ${CMAKE_CURRENT_BINARY_DIR}/gen/res.h
+    ${CMAKE_CURRENT_BINARY_DIR}/gen/res.rc
+    ${CMAKE_CURRENT_BINARY_DIR}/gen/res_map.h
+    ${CMAKE_CURRENT_BINARY_DIR}/gen/res_map.cpp)
+  set(RESOURCES "")
 elseif(APPLE)
   list(APPEND CMAKE_FRAMEWORK_PATH ${CMAKE_CURRENT_SOURCE_DIR}/ext)
   find_library(LIBSDL SDL2)
@@ -39,9 +48,8 @@ if ("${LIBSDL}" STREQUAL LIBSDL-NOTFOUND)
   message(FATAL_ERROR "libsdl is notfound place libsdl files into ext")
 endif()
 
-add_subdirectory(res)
-include(src/CMakeLists.txt)
-
 add_executable(${APPNAME} MACOSX_BUNDLE WIN32 ${SRCS} ${RESOURCES})
-set_target_properties(${APPNAME} PROPERTIES RESOURCE "${RESOURCES}")
+if(NOT WIN32)
+  set_target_properties(${APPNAME} PROPERTIES RESOURCE ${RESOURCES})
+endif()
 target_link_libraries(${APPNAME} ${LIBSDL} ${LIBSDLIMG} ${PLATFORM_SPECIFIC_LIBS})

@@ -34,7 +34,21 @@ private:
   Rect dstRect;
 };
 
-Sprite *Sprite::LoadFromPath(const std::string &path)
+#ifdef _MSC_VER
+Sprite *Sprite::Load(const uint32_t &id)
+{
+  Sprite *sprite = new Sprite();
+
+  if (auto cache = TextureCache::Instance().lock())
+  {
+    sprite->texture = cache->loadFromID(id).lock();
+    sprite->currentRect.size = sprite->texture->size();
+  }
+
+  return sprite;
+}
+#else
+Sprite *Sprite::Load(const std::string &path)
 {
   Sprite *sprite = new Sprite();
 
@@ -46,13 +60,7 @@ Sprite *Sprite::LoadFromPath(const std::string &path)
 
   return sprite;
 }
-
-Sprite *Sprite::LoadFromId(const uint32_t &id)
-{
-  Sprite *sprite = new Sprite();
-  
-  return sprite;
-}
+#endif
 
 Sprite::Sprite(const Sprite &org)
   : texture(org.texture)

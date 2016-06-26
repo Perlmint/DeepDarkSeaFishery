@@ -7,6 +7,7 @@
 #include "game/sprite.h"
 #include "game/texture.h"
 #include "game/renderer.h"
+#include "res.h"
 
 SDL_Window *sdlWindow;
 SDL_Renderer *sdlRenderer;
@@ -19,7 +20,7 @@ void main_loop()
   SDL_Event events;
   Uint32 start;
   
-  Sprite *sprite = Sprite::LoadFromPath("grass.png");
+  Sprite *sprite = Sprite::Load(IDB_grass__png);
   sprite->setScale(2.0f);
 
   while(running)

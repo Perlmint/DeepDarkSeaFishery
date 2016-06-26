@@ -11,8 +11,13 @@ class Animation;
 class Sprite
 {
 public:
-  static Sprite *LoadFromPath(const std::string &path);
-  static Sprite *LoadFromId(const uint32_t &id);
+#ifdef _MSC_VER
+  // for windows resources
+  static Sprite *Load(const uint32_t &id);
+#else
+  // for other platform resources
+  static Sprite *Load(const std::string &path);
+#endif
 
   Sprite(const Sprite &org);
 
