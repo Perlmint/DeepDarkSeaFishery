@@ -15,9 +15,12 @@ if(WIN32)
   find_library(LIBSDLIMG SDL2_image)
 
   # copy dll
-  foreach(dllname ITEMS
-          SDL2.dll
-          SDL2_image.dll)
+  set(dllnames
+    SDL2.dll
+    SDL2_image.dll
+    libpng16-16.dll
+    zlib1.dll)
+  foreach(dllname ${dllnames})
     list(APPEND DLL_LIST ${EXT_LIB_PATH}/${dllname})
     list(APPEND OUTPUT_DLL_LIST ${CMAKE_CURRENT_BINARY_DIR}/${dllname})
   endforeach(dllname)
