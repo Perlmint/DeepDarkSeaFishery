@@ -41,7 +41,7 @@ for res in stdin:
 res_ext_map_by_id = {}
 for ext, items in res_map_by_ext.items():
     for res in items:
-        res_ext_map_by_id.setdefault(idx, (ext, res[0]))
+        res_ext_map_by_id.setdefault(res_map_id[res[0]], (ext, res[0]))
 
 if args.target == 'msvc':
   header = StringIO()
