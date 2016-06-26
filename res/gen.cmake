@@ -11,7 +11,12 @@ foreach(res IN LISTS RESOURCES)
   file(APPEND "${CMAKE_BINARY_DIR}/RES_FILES" "IDB_${identifier} ${res}\n")
 endforeach(res)
 
-execute_process(COMMAND python ${SCRIPT_DIR}/gen.py ${CMAKE_BINARY_DIR}/gen/res
+if(${MSVC})
+  set(target msvc)
+else()
+  set(target path)
+endif()
+
+execute_process(COMMAND python ${SCRIPT_DIR}/gen.py ${CMAKE_BINARY_DIR}/gen/res ${SCRIPT_DIR} ${target}
                 INPUT_FILE "${CMAKE_BINARY_DIR}/RES_FILES")
-MESSAGE("${CMAKE_BINARY_DIR}/res")
 file(REMOVE "RES_FILES")

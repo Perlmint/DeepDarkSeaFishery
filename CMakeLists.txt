@@ -30,12 +30,6 @@ if(WIN32)
   execute_process(COMMAND cmake -E copy_if_different ${DLL_LIST} ${CMAKE_CURRENT_BINARY_DIR})
 
   include_directories(ext/include ext/include/SDL2 ${CMAKE_CURRENT_BINARY_DIR}/gen)
-  list(APPEND SRCS
-    ${CMAKE_CURRENT_BINARY_DIR}/gen/res.h
-    ${CMAKE_CURRENT_BINARY_DIR}/gen/res.rc
-    ${CMAKE_CURRENT_BINARY_DIR}/gen/res_map.h
-    ${CMAKE_CURRENT_BINARY_DIR}/gen/res_map.cpp)
-  set(RESOURCES "")
 elseif(APPLE)
   list(APPEND CMAKE_FRAMEWORK_PATH ${CMAKE_CURRENT_SOURCE_DIR}/ext)
   find_library(LIBSDL SDL2)
