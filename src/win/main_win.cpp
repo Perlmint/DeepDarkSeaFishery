@@ -10,6 +10,12 @@ bool initWindow(SDL_Window *window)
   if (SDL_GetWindowWMInfo(window, &info))
   {
     HWND hwnd = info.info.win.window;
+    const HWND hDesktop = GetDesktopWindow();
+    RECT desktop;
+    GetWindowRect(hDesktop, &desktop);
+    constexpr int height = 200;
+    SetWindowPos(hwnd, NULL, 0, desktop.bottom - height, desktop.right, height, 0);
+
     SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) |WS_EX_LAYERED);
     SetLayeredWindowAttributes(hwnd, RGB(0,0,0), (255 * 70)/100, LWA_COLORKEY);
   }
