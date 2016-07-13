@@ -19,4 +19,6 @@ add_sources(
   ${R}/renderer.h
   ${R}/renderer.cpp
   ${R}/render_command.h
+  ${R}/sprite_render_command.cpp
+  ${R}/sprite_render_command.h
   )
