@@ -15,3 +15,8 @@ Texture::~Texture()
 {
   SDL_DestroyTexture(_texture);
 }
+
+size_t Texture::getHash() const
+{
+  return reinterpret_cast<size_t>(_texture);
+}
