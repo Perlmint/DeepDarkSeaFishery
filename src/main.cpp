@@ -49,6 +49,7 @@ void main_loop()
     Renderer::clear();
     SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
     sprite->render(Renderer::get(), Point(0, 0));
+    Renderer::render();
     SDL_RenderPresent(sdlRenderer);
 
     //frame regulation

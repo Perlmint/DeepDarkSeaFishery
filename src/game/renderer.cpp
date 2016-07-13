@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include "render_command.h"
 
 #include <memory>
 
@@ -42,10 +43,19 @@ void Renderer::clear()
 
 void Renderer::render()
 {
-  
+  for (auto &commands : instance->commands)
+  {
+    switch (std::get<1>(commands.first))
+    {
+    case CommandType::SPRITE:
+      commands.second->render(instance->renderer);
+      break;
+    }
+  }
+  instance->commands.clear();
 }
 
-void Renderer::queueCommand(const RenderCommand &command)
+void Renderer::queueCommand(std::shared_ptr<RenderCommand> &command)
 {
-  
+  instance->commands.emplace(std::make_tuple(command->z(), command->type(), command->key()), command);
 }
