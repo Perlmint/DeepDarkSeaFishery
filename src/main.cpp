@@ -52,10 +52,11 @@ void main_loop()
     Renderer::render();
     SDL_RenderPresent(sdlRenderer);
 
+    uint32_t renderTime = SDL_GetTicks() - start;
     //frame regulation
-    if(1000/30 > SDL_GetTicks() - start)
+    if(1000/30 > renderTime)
     {
-      SDL_Delay(1000/30 - (SDL_GetTicks() - start));
+      SDL_Delay(1000/30 - renderTime);
     }
   }
 }
