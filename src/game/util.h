@@ -32,6 +32,7 @@ public:
   Point operator*(int_fast32_t) const;
   Point operator-(const Vec2 &v) const { return Point(x - v.v1, y - v.v2); }
   Point operator+(const Vec2 &v) const { return Point(x + v.v1, y + v.v2); }
+  bool operator==(const Point &p) const { return p.x == x && p.y == y; }
 
   int_fast32_t x;
   int_fast32_t y;
@@ -71,6 +72,7 @@ public:
   Size &operator*=(float &v) { *this = *this * v; return *this; }
   Size operator/(float v) const { return *this * (1 / v);}
   Size &operator/=(float &v) { *this = *this / v; return *this; }
+  bool operator==(const Size &s) const { return s.width == width && s.height == height; }
 
   uint_fast32_t width;
   uint_fast32_t height;
@@ -90,6 +92,7 @@ public:
   Rect(const Rect &) = default;
 
   void toSDLRect(SDL_Rect &) const;
+  bool operator==(const Rect &r) const { return r.origin == origin && r.size == size; }
 
   Point origin;
   Size size;

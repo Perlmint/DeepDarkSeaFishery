@@ -49,12 +49,14 @@ void main_loop()
     Renderer::clear();
     SDL_SetRenderDrawBlendMode(sdlRenderer, SDL_BLENDMODE_BLEND);
     sprite->render(Renderer::get(), Point(0, 0));
+    Renderer::render();
     SDL_RenderPresent(sdlRenderer);
 
+    uint32_t renderTime = SDL_GetTicks() - start;
     //frame regulation
-    if(1000/30 > SDL_GetTicks() - start)
+    if(1000/30 > renderTime)
     {
-      SDL_Delay(1000/30 - (SDL_GetTicks() - start));
+      SDL_Delay(1000/30 - renderTime);
     }
   }
 }
